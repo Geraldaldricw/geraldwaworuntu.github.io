@@ -1,0 +1,118 @@
+1. Introduction
+
+For the project, I built a VPN server using the WireGuard software. I installed the software on a small cloud computer hosted on DigitalOcean. I installed Docker and Docker Compose on the computer. Once the WireGuard software was installed, I downloaded the config file for the software on my computer and proceeded to connect to the VPN using the software. I also checked the IP address on the computer with and without the VPN. This document highlights the steps I took.
+
+2. Droplet creation on DigitalOcean
+
+3. Creating My Account and Project
+
+I signed up for a DigitalOcean account using the student credits. Once the account was ready, I started a new project where I could contain everything for the assignment.
+
+4. Making the Droplet
+
+I made my Droplet using these parameters:
+|- Plan: $6/month
+- CPU: 1 vCPU
+- RAM: 1 GB
+- Storage: 25 GB SSD
+- Region: SFO2
+
+- Image: Ubuntu 24.04
+
+- Public IP: 157.245
+
+5. Accessing the Droplet
+
+I accessed the Droplet by clicking the “Launch Droplet Console” link on the DigitalOcean website. This allowed me to enter commands on the server.
+
+6. Updating the System and Installing Docker
+Firstly, I opened the console and updated the system, installed Docker, and Docker Compose. I typed the following:
+apt update && apt upgrade -y
+
+- apt install docker.io docker-compose -y
+
+- systemctl enable docker
+
+- systemctl start docker
+
+Docker and Docker Compose have been installed.
+
+7. Setup of Wireguard with Docker-Compose
+
+8. Making the WireGuard Folder
+
+I created a folder for the purposes of managing WireGuard, and I changed into that folder.
+
+mkdir wireguard
+
+- cd wireguard
+
+9. Creating the docker-compose.yml File
+I wrote the Docker Compose file using the following command:
+- nano docker-compose.yml
+Next, I inserted the following text:
+"3.8
+services:
+wireguard
+image: linuxserver
+container_name: wire
+cap_add
+- NET_ADMIN
+- sys_module
+environment:
+- PUID:
+- PGID:
+- TZ=America
+- SERVERURL:
+- SERVERPORT=
+- peers=2
+- PEER_D
+
+- ALLOWEDIPS
+
+volumes:
+
+- ./config:
+
+ports:
+
+- 51820
+
+restart: unless-st
+
+5.3 Starting Wire
+
+To bring up the WireGuard connection, I used
+
+- docker-compose up -d
+
+- docker ps
+
+The Docker container started successfully, and it confirmed that the WireGuard service is running.
+
+6. Obtener la Configuración de VPN de WireGuard
+
+WireGuard automatically generated the config files. They were located at:
+
+- /root/w
+
+- /root/w
+
+I reviewed one file using:
+- cat /root/wire
+6.1. Downloading the Config Files to My Computer
+As indicated
+
+For downloading the files on my laptop, I used PowerShell:
+
+scp root@157.245.230
+
+scp root@157.245.230
+
+Both files downloaded properly.
+
+7. Importing the VPN Profile on My Computer
+
+I installed the Wireguard on my windows computer. Next, I accessed the VPN using the following steps:
+
+- Opening WireGuard - Clicking the “Add Tunnel → Import from File” - Selecting the file “peer2.conf” - Click on “Activate”, The VPN connection was successful. 8. Verifying the VPN Connection 8.1 Before Connecting I typed the phrase “what is my IP” on Google, with the VPN turned off. This reflected my usual IP address. 8.2 After Connecting Once the VPN was activated, I typed “What is my IP” again into the browser. The new IP address was: 157 This indicated that my Internet traffic was passing through the VPN server.
